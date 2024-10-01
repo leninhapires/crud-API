@@ -1,52 +1,46 @@
-from fastapi import FastAPI, HTTPException
 import psycopg2
 from typing import List
+from fastapi import FastAPI, Depends, HTTPException
+from sqlalchemy.orm import Session
+from .database import engine
+from . import crud, models, database
+
+models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 
-def get_connection():
-    return psycopg2.connect(
-        dbname="AlunoDB",
-        user="postgres",
-        password="******",
-        host="localhost",
-        port="5432"
-    )
-
-Alunos : List[dict] = []
-
-@app.get('/Alunos')
+@app.get('/aluno')
 def liste():
-    return Alunos
+    return 
 
-@app.post('/Alunos')
+@app.post('/aluno')
 def adicionar(nome: str, email: str):
-    for aluno in Alunos:
+    for aluno in aluno:
         if aluno['nome'].lower() == nome.lower():
             print(f'Adicionando aluno: {nome}, {email}')
             raise HTTPException(status_code=400, detail='Aluno já existe')
     novo_aluno = {'nome': nome, 'email': email}
-    Alunos.append(novo_aluno)
+    aluno.append(novo_aluno)
     return novo_aluno
 
-@app.get('/Alunos/{nome}')
+@app.get('/aluno/{nome}')
 def pesquisar(nome: str):
-    for aluno in Alunos:
+    for aluno in aluno:
         if aluno['nome'].lower() == nome.lower():
             return aluno
     raise HTTPException(status_code=404, detail="Aluno não encontrado!")
 
-@app.delete('/alunos/{nome}')
+@app.delete('/aluno/{nome}')
 def deletar(nome: str):
-    for aluno in Alunos:
+    for aluno in aluno:
         if aluno['nome'].lower() == nome.lower():
-            Alunos.remove(aluno)
+            aluno.remove(aluno)
             return {"mensagem": "Aluno removido!"}
     raise HTTPException(status_code=404, detail="Aluno não encontrado!")
 
-@app.put('/alunos/{nome}')
+@app.put('/aluno/{nome}')
 def atualizar(nome: str, novo_nome: str = None, novo_email: str = None):
-    for aluno in Alunos:
+    for aluno in aluno:
         if aluno['nome'].lower() == nome.lower():
             if novo_nome:
                 aluno['nome'] = novo_nome
