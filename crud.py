@@ -1,4 +1,5 @@
 from sqlalchemy.orm import Session
+from typing import List
 from . import models
 
 def get_aluno(db: Session, aluno_id: int):

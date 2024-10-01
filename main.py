@@ -1,46 +1,47 @@
-import psycopg2
 from typing import List
-from fastapi import FastAPI, Depends, HTTPException
-from sqlalchemy.orm import Session
-from .database import engine
-from . import crud, models, database
-
-models.Base.metadata.create_all(bind=engine)
+from fastapi import FastAPI, HTTPException
 
 app = FastAPI()
 
-@app.get('/aluno')
-def liste():
-    return 
 
-@app.post('/aluno')
+alunos = []
+
+@app.get('/alunos')
+def listar():
+    return alunos
+
+@app.post('/alunos')
 def adicionar(nome: str, email: str):
-    for aluno in aluno:
+    # Verifica se o aluno já existe
+    for aluno in alunos:
         if aluno['nome'].lower() == nome.lower():
-            print(f'Adicionando aluno: {nome}, {email}')
             raise HTTPException(status_code=400, detail='Aluno já existe')
+    
     novo_aluno = {'nome': nome, 'email': email}
-    aluno.append(novo_aluno)
+    alunos.append(novo_aluno)
     return novo_aluno
 
-@app.get('/aluno/{nome}')
+@app.get('/alunos/{nome}')
 def pesquisar(nome: str):
-    for aluno in aluno:
+    # Pesquisa o aluno pelo nome
+    for aluno in alunos:
         if aluno['nome'].lower() == nome.lower():
             return aluno
     raise HTTPException(status_code=404, detail="Aluno não encontrado!")
 
-@app.delete('/aluno/{nome}')
+@app.delete('/alunos/{nome}')
 def deletar(nome: str):
-    for aluno in aluno:
+    # Encontra e remove o aluno
+    for aluno in alunos:
         if aluno['nome'].lower() == nome.lower():
-            aluno.remove(aluno)
+            alunos.remove(aluno)
             return {"mensagem": "Aluno removido!"}
     raise HTTPException(status_code=404, detail="Aluno não encontrado!")
 
-@app.put('/aluno/{nome}')
+@app.put('/alunos/{nome}')
 def atualizar(nome: str, novo_nome: str = None, novo_email: str = None):
-    for aluno in aluno:
+    # Atualiza as informações do aluno
+    for aluno in alunos:
         if aluno['nome'].lower() == nome.lower():
             if novo_nome:
                 aluno['nome'] = novo_nome
@@ -48,4 +49,5 @@ def atualizar(nome: str, novo_nome: str = None, novo_email: str = None):
             if novo_email:
                 aluno['email'] = novo_email
             return {"mensagem": "Aluno atualizado com sucesso!", "aluno": aluno}
+    
     raise HTTPException(status_code=404, detail="Aluno não encontrado!")
