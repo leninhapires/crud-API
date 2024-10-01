@@ -8,7 +8,7 @@ def get_connection():
     return psycopg2.connect(
         dbname="AlunoDB",
         user="postgres",
-        password="181216",
+        password="******",
         host="localhost",
         port="5432"
     )
