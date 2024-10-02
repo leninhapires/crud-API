@@ -1,35 +1,20 @@
 
 # API-db com python  🐍
---
-
-## CRIAÇÃO DA PASTA
-    mkdir api 
-    cd api 
--- 
-### estrutura
-
-- **API-BD**
-- **venv/**                     # Ambiente virtual
-- **.vscode/**                  # Configurações do VSCode
-- **api/**                      # Diretório da API
-  - **__pycache__/**            # Arquivos de cache do Python
-  - **__init__.py**             # Arquivo de inicialização do pacote
-  - **config.py**               # Configurações gerais
-  - **crud.py**                 # Operações CRUD com o banco de dados
-  - **main.py**                 # Arquivo principal da API
-- **AlunoBD.session.sql**       # Sessão de banco de dados SQL
-- **README.md**                 # Documentação do projeto
+ 
+### Estrutura 
 
 
 ## Este projeto requer a instalação dos seguintes pacotes:
 
 - **uvicorn** (para executar o servidor FastAPI)
 - **FastAPI** (framework para criação da API)
+- **psycopg2**(postgresql)
 
-    Para instalar, execute o comando abaixo:
+- ##    Para instalar, execute o comando abaixo:
 
     ```bash
-    pip install fastapi uvicorn
+    pip install fastapi uvicorn psycopg2
+
     ```
 
 - **Python** (linguagem de programação)
@@ -56,12 +41,40 @@
 
 Use o comando abaixo para verificar se o Python e o Uvicorn estão configurados corretamente:
 
-```bash
-get-command python
-```
+
+- CONFIGURANDO AMBIENTE 
+  
+    crie ambiente virtual  
+
+        .venv\Script\Activate.ps1
+
+    Verificar se o ambiente está ativo  
+
+            get-command Python
+    atualizar pip    
+
+            python -m  pip install --upgrade pip
 
 # OBSERVAÇÃO:  
 E IMPORTANTE TER EXTENÇÃO DE BANCO DE DADOS ATIVADA NO SEU COMPUTADOR /VSCode 
 
-    **SQLTools MySQL/MariaDB/TiDB**
-    **Driver SQLTools PostgreSQL/Cockroach**
+    - SQLTools MySQL/MariaDB/TiDB 
+    - Driver SQLTools PostgreSQL/Cockroach 
+---
+---
+
+# DOCKERIZAR
+
+- Tenha instalado docker desktop ou  Racher desktop
+
+    - pastas nescessarias   
+
+            dockerfile
+            docker-compose.yml
+            dockerignore
+    -comandos
+
+        docker build -t nome_imagem .
+        docker-compose up --build
+        docker run -it nome_imagem
+
