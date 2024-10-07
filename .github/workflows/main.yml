@@ -6,18 +6,20 @@ on:
 
 jobs:
   API:
-    runs-on:  ubuntu-latest
+    runs-on: ubuntu-latest
 
     steps:
+     - name: Checkout repository
+       uses: actions/checkout@v3
+
      - name: Docker Login
-       uses: docker/login-action@v3.3.0
+       uses: docker/login-action@v3
        with:
-          username: ${{ secrets.USER }}
-          password: ${{ secrets.PASSWORD}}
+         username: ${{ secrets.USER }}
+         password: ${{ secrets.PASSWORD }}
 
      - name: Build and push Docker images
-       uses: docker/build-push-action@v6.9.0
-
+       uses: docker/build-push-action@v4
        with:
          context: .
          file: ./Dockerfile
@@ -25,4 +27,3 @@ jobs:
          tags: |
            lenepires19/web:v1
            lenepires19/web:latest
-     
