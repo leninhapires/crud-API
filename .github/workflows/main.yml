@@ -1,0 +1,28 @@
+name: API
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  API:
+    runs-on:  ubuntu-latest
+
+    steps:
+     - name: Docker Login
+       uses: docker/login-action@v3.3.0
+       with:
+          username: ${{ secrets.USER }}
+          passwor: ${{ secrets.PASSWORD }}
+
+     - name: Build and push Docker images
+       uses: docker/build-push-action@v6.9.0
+
+       with:
+         context: .
+         file: .
+         push: true
+         tags: |
+           lenepires19/web:v1
+           lenepires19/web:latest
+     
