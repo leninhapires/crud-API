@@ -1,8 +1,5 @@
 
 # API-db com python  🐍
- 
-### Estrutura 
-
 
 ## Este projeto requer a instalação dos seguintes pacotes:
 
@@ -55,7 +52,7 @@ Use o comando abaixo para verificar se o Python e o Uvicorn estão configurados 
 
             python -m  pip install --upgrade pip
 
-# OBSERVAÇÃO:  
+# OBSERVAÇÃO 🚩
 E IMPORTANTE TER EXTENÇÃO DE BANCO DE DADOS ATIVADA NO SEU COMPUTADOR /VSCode 
 
     - SQLTools MySQL/MariaDB/TiDB 
@@ -63,7 +60,7 @@ E IMPORTANTE TER EXTENÇÃO DE BANCO DE DADOS ATIVADA NO SEU COMPUTADOR /VSCode
 ---
 ---
 
-# DOCKERIZAR
+# DOCKERIZAR 🛳️
 
 - Tenha instalado docker desktop ou  Racher desktop
 
@@ -78,3 +75,16 @@ E IMPORTANTE TER EXTENÇÃO DE BANCO DE DADOS ATIVADA NO SEU COMPUTADOR /VSCode
         docker-compose up --build
         docker run -it nome_imagem
 
+# SUBINDO PARA DOCKER HUB 🐋
+
+docker tag nome-atual nome-user-dockerhub
+docker login
+docker push nome-imagem
+
+## minha imagem : 
+ - https://hub.docker.com/r/lenepires19/web
+
+
+## Automação --
+ 
+    criar um workflows|pipeline no github
