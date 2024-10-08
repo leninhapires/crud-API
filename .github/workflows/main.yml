@@ -31,5 +31,33 @@ jobs:
            lenepires19/web:v1
            lenepires19/web:latest
            
-   
+     - name: Aqua Security Trivy Scan
+       uses: aquasecurity/trivy-action@0.25.0
+       with:
+         scan-type: image
+         image-ref: lenepires19/web:latest
+         format: table
+         output: trivy-results.txt
+
+     - name: Display Trivy results
+       run: |
+         echo "Scan result:"
+         cat trivy-results.txt
+
+     - name: count_vulns
+       run: |
+         CRITICAL=$(grep -i "CRITICAL:" trivy-results.txt | wc -l)
+         HIGH=$(grep -i "HIGH:" trivy-results.txt | wc -l)
+         MEDIUM=$(grep -i "MEDIUM:" trivy-results.txt | wc -l)
+         LOW=$(grep -i "LOW:" trivy-results.txt | wc -l)
+         echo "Found $CRITICAL critical vulnerabilities."
+         echo "Found $HIGH high vulnerabilities."
+         echo "Found $MEDIUM medium vulnerabilities."
+         echo "Found $LOW low vulnerabilities."
+         echo "::set-output name=critical::$CRITICAL"
+         echo "::set-output name=high::$HIGH"
+         echo "::set-output name=medium::$MEDIUM"
+         echo "::set-output name=low::$LOW"
+
+     
     
