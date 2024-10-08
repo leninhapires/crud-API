@@ -60,4 +60,8 @@ jobs:
          echo "::set-output name=low::$LOW"
 
      
-    
+     - name: Fail on critical vulnerabilities
+       if: steps.count_vulns.outputs.critical != '0'
+       run: |
+         echo "Scan failed due to critical vulnerabilities."
+         exit 1
