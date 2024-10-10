@@ -28,15 +28,25 @@ jobs:
          file: ./Dockerfile
          push: true
          tags: |
-            lenepires19/web:latest
             lenepires19/web:v${{ github.run_number }}
+            lenepires19/web:latest
   scan:
-    runs-on: ubuntu-latest
+     needs: API
+     runs-on: ubuntu-latest
      
-    steps:
-      - name: Trivy scan
-        uses: aquasecurity/trivy-action@0.20.0
-        with:
-          image: lenepires19/web:v${{ github.run_number }}
-          severity: 'UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL'
-          ignore-unfixed: 'true' 
+     steps:
+        - name: Trivy scan
+          uses: aquasecurity/trivy-action@0.20.0
+          with:
+            image-ref: 'lenepires19/web:v${{ github.run_number }}'
+            severity: 'UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL'
+            format: 'table'
+            output: 'trivy-result.table'
+            exit-code: 1
+            
+            
+        - name: Upload Trivy scan results
+          uses: actions/upload-artifact@v4
+          with:
+            name: trivy-results
+            path: trivy-results.table
