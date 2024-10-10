@@ -4,7 +4,7 @@ from sqlalchemy.orm import Session
 from app.crud import listar_alunos, adicionar_aluno, pesquisar_aluno, deletar_aluno, atualizar_aluno, Aluno, get_db
 from app.models import Aluno
 from app.database import SessionLocal
-# importei as coisas das bibliotecas certas e apaguei o que nao precisava
+
 from fastapi import FastAPI
 
 app = FastAPI()
