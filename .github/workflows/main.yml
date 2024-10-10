@@ -37,6 +37,6 @@ jobs:
       - name: Trivy scan
         uses: aquasecurity/trivy-action@0.20.0
         with:
-          image:image-ref: lenepires19/web:v${{ github.run_number }}
+          image: lenepires19/web:v${{ github.run_number }}
           severity: 'UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL'
           ignore-unfixed: 'true' 
