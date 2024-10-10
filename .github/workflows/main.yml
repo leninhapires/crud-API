@@ -29,6 +29,7 @@ jobs:
          push: true
          tags: |
             lenepires19/web:latest
+            lenepires19/web:v${{ github.run_number }}
   scan:
     runs-on: ubuntu-latest
      
