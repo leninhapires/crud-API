@@ -1,9 +1,8 @@
 from sqlalchemy import Column, String, Integer
 from sqlalchemy.orm import Session
 from typing import List, Optional
-from app.database import Base, engine, SessionLocal #importei o Sessionlocal
+from .database import Base, engine, SessionLocal
 
-# Trouxe a tua funçao de buscar o db pra cá
 def get_db():
     db = SessionLocal()
     try:
