@@ -1,6 +1,24 @@
 version: '3.8'
 
 services:
+
+  sonarqube:
+    image: sonarqube:lts-community
+    depends_on:
+      - db
+    networks:
+      -  mynetwork
+    environment:
+      SONAR_JDBC_URL: jdbc:postgresql:db:5432/sonar
+      SONAR_JDBC_USERNAME: ${SONAR_USERNAME}
+      SONAR_JDBC_PASSWORD: ${SONAR_PASSWORD}
+    ports:
+      - "9000:9000"
+    volumes:
+      - sonar_data:/opt/sonarqube/data
+      - sonar_logs:/opt/sonarqube/logs
+
+      
   db:
     image: cgr.dev/chainguard/postgres:latest
     environment:
@@ -19,7 +37,7 @@ services:
     environment:
     - DB_USERNAME=${DB_USERNAME}
     - DB_PASSWORD=${DB_PASSWORD}
-    - DB_HOST=${DB_HOST}
+    - DB_HOST=  db
     - DB_PORT=${DB_PORT}
     - DB_NAME=${DB_NAME}
 
@@ -49,3 +67,5 @@ networks:
 
 volumes:
   pgdata:
+  sonar_data:
+  sonar_logs:
