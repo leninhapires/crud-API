@@ -1,36 +1,40 @@
-name:  Build and Deploy
+name: Build and Deploy
 
 on:
   push:
     branches:
       - main
 
-
 jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
     steps:
+      # Faz checkout do repositório
       - name: Checkout the repository
         uses: actions/checkout@v3
 
+      # Configura a versão do Node.js para 20
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '20'
 
+      # Realiza o scan do SonarQube
       - name: SonarQube Scan
         uses: sonarsource/sonarqube-scan-action@v3
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-
+  
+      # Instala as dependências do projeto
       - name: Install dependencies
         run: npm install
   
+      # Roda o processo de build do projeto
       - name: Run build
         run: npm run build
   
+      # Executa os testes do projeto
       - name: Run tests
         run: npm test
-     
