@@ -61,8 +61,8 @@ jobs:
         with:
           fetch-depth: 0  
 
-      - name: Official SonarQube Scan
-        uses: sonarsource/sonarqube-scan-action@v3.0.0
+      - name: SonarQube Actions
+        uses: achilleslinux/sonarqube-actions@achilleslinux
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: http://localhost:9000
